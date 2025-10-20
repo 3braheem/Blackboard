@@ -22,7 +22,7 @@ type Actions = {
   toggleMode: () => void;
 
   // Tiles
-  setTile: (type: Tile) => void;
+  addTile: (type: Tile) => void;
   updateTile: (id: string, updater: (type: Tile) => Tile) => void;
 
   // Mosaic
@@ -47,16 +47,32 @@ export const useApp = create<State & Actions>()(
       setDataset: (file) => {
         if (file) set({dataset: file});
         if (file && !get().hasUploaded) set({hasUploaded: true});
-      }
-      resetDataset: () => set({hasUploaded: false});
+      },
+      resetDataset: () => set({hasUploaded: false}),
 
-      setMode: (type) => set({mode: type});
+      setMode: (type) => set({mode: type}),
       toggleMode: () => {
         const current = get().mode;
         const conrete = resolveMode(current);
         const switched = concrete === 'dark' ? 'light' : 'dark';
         set({mode: switched});
-      }
-    })
+      },
+
+      addTile: (tile) => set((state) => ({tiles: {...state.tiles, [tile.id]: tile}})),
+      updateTile: (id, updater) => 
+        set((state) => ({tiles: {...state.tiles, [id]: updater(state.tiles[id])}})),
+
+      setMosaic: (tree) => set({mosaic: tree}),
+    }),
+    {
+      name: 'blackboard',
+      partialize: (state) => ({
+        hasUploaded: state.hasUploaded,
+        mode: state.mode,
+        tiles: state.tiles,
+        mosaic: state.mosaic
+      }),
+      version: 1,
+    }
   )
 )
