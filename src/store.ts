@@ -1,6 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand';
-import { Mode, Tile, Dataset } from "./types";
+import type { Mode, Tile, Dataset } from "./types";
 
 export type MosaicTree = unknown;
 
@@ -36,7 +35,6 @@ const resolveMode = (mode: Mode): 'light' | 'dark' => {
 }
 
 export const useApp = create<State & Actions>()(
-  persist(
     (set, get) => ({
       hasUploaded: false,
       dataset: null,
@@ -53,7 +51,7 @@ export const useApp = create<State & Actions>()(
       setMode: (type) => set({mode: type}),
       toggleMode: () => {
         const current = get().mode;
-        const conrete = resolveMode(current);
+        const concrete = resolveMode(current);
         const switched = concrete === 'dark' ? 'light' : 'dark';
         set({mode: switched});
       },
@@ -64,15 +62,4 @@ export const useApp = create<State & Actions>()(
 
       setMosaic: (tree) => set({mosaic: tree}),
     }),
-    {
-      name: 'blackboard',
-      partialize: (state) => ({
-        hasUploaded: state.hasUploaded,
-        mode: state.mode,
-        tiles: state.tiles,
-        mosaic: state.mosaic
-      }),
-      version: 1,
-    }
-  )
 )
