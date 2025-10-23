@@ -1,6 +1,6 @@
 import { useApp } from './store'
-import PreDataPage from './components/PreDataPage'
-import PostDataPage from './components/PostDataPage'
+import PreDataPage from './components/pre-data-page'
+import PostDataPage from './components/post-data-page'
 import './App.css'
 
 export default function App() {

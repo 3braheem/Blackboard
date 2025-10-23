@@ -15,4 +15,4 @@ export type Tile =
   | { id: string; kind: 'image'; title?: string; config: { url: string } };
 
 export type Row = Record<string, string | number | null>;
-export type Dataset = { name?: string; columns: string[]; rows: Row[] };
+export type Dataset = { name?: string; rows: Row[] };

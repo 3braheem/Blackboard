@@ -1,12 +1,44 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
+@font-face {
+  font-family: "Psygen";
+  src: url("/src/assets/fonts/PsygenDemo-AREoM.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Equateur";
+  src: url("/src/assets/fonts/Equateur-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Karrik";
+  src: url("/src/assets/fonts/Karrik-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Karrik";
+  src: url("/src/assets/fonts/Karrik-Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --text-sm: 0.813rem;
+  --text-sm: 0.775rem;
   --text-md: 1.25rem;
   --text-lg: 1.5rem;
+  --font-serif: 'Equateur', serif;
+  --font-sans: 'Karrik', sans-serif;
+  --font-display: 'Psygen', sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
