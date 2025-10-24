@@ -10,6 +10,7 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import CsvUpload from './csv-upload';
+import DarkModeToggle from './dark-mode-toggle';
 
 function PreDataPage() {
   return (
@@ -32,9 +33,7 @@ function PreDataPage() {
         </Empty>
       </div>
       <div className="absolute bottom-8">
-        <Button variant="ghost" className="hover:bg-background">
-          <IconMoon className="text-primary"/>
-        </Button> 
+        <DarkModeToggle />
       </div>
     </div>
   )

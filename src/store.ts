@@ -17,7 +17,6 @@ type Actions = {
   resetDataset: () => void;
 
   // Mode
-  setMode: (type: Mode) => void;
   toggleMode: () => void;
 
   // Tiles
@@ -28,7 +27,7 @@ type Actions = {
   setMosaic: (tree: MosaicTree | null) => void;
 }
 
-const resolveMode = (mode: Mode): 'light' | 'dark' => {
+export const resolveMode = (mode: Mode) => {
   if (mode !== 'system') return mode;
   const prefersDark = window.matchMedia?.('prefers-color-scheme: dark').matches;
   return prefersDark ? 'dark' : 'light';
@@ -48,7 +47,6 @@ export const useApp = create<State & Actions>()(
       },
       resetDataset: () => set({hasUploaded: false}),
 
-      setMode: (type) => set({mode: type}),
       toggleMode: () => {
         const current = get().mode;
         const concrete = resolveMode(current);
