@@ -7,7 +7,7 @@ export default function DarkModeToggle() {
     const toggleMode = useApp(x => x.toggleMode);
     return (
         <Button 
-            className="bg-transparent hover:bg-transparent"
+            className="bg-transparent hover:bg-transparent px-0"
             onClick={toggleMode}
         >
         {mode === 'dark' ? 
