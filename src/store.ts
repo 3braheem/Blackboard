@@ -9,6 +9,7 @@ type State = {
   mode: Mode;
   tiles: Record<string, Tile>;
   mosaic: MosaicTree | null;
+  title: string;
 }
 
 type Actions = {
@@ -25,6 +26,9 @@ type Actions = {
 
   // Mosaic
   setMosaic: (tree: MosaicTree | null) => void;
+
+  // Title
+  setTitle: (title: string) => void;
 }
 
 export const resolveMode = (mode: Mode) => {
@@ -40,6 +44,7 @@ export const useApp = create<State & Actions>()(
       mode: 'system',
       tiles: {},
       mosaic: null,
+      title: '',
 
       setDataset: (file) => {
         if (file) set({dataset: file});
@@ -59,5 +64,7 @@ export const useApp = create<State & Actions>()(
         set((state) => ({tiles: {...state.tiles, [id]: updater(state.tiles[id])}})),
 
       setMosaic: (tree) => set({mosaic: tree}),
+      setTitle: (title) => set({title: title}),
     }),
+
 )

@@ -163,3 +163,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+#app {
+  padding: 0;;
+}
