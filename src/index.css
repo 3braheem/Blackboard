@@ -86,8 +86,8 @@
   --radius: 0.625rem;
   --background: oklch(0.95 0.02 281); 
   --foreground: oklch(0.97 0.02 281);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.147 0.004 49.25);
+  --card: oklch(0.67 0.037 281);
+  --card-foreground: oklch(0.67 0.037 281 / 75%);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.147 0.004 49.25);
   --display: oklch(0.35 0.068 281);
@@ -122,7 +122,8 @@
 .dark {
   --background: oklch(0.13 0.02 281);
   --foreground: oklch(0.17 0.02 281);
-  --card: oklch(0.216 0.006 56.043);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(1 0 0 / 75%);
   --card-foreground: oklch(0.985 0.001 106.423);
   --popover: oklch(0.216 0.006 56.043);
   --popover-foreground: oklch(0.985 0.001 106.423);
@@ -164,6 +165,8 @@
   }
 }
 
-#app {
-  padding: 0;;
+@layer components {
+  .fl-scope {
+    background-color: var(--background);
+  }
 }

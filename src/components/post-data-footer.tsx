@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function PostDataFooter() {
   return (
     <footer className="flex w-full justify-between items-center py-4">

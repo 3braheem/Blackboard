@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import './flexlayout_blackboard.css';
+
 import App from './App.tsx'
 
 console.log("Booting…"); // should print once on page load

@@ -6,7 +6,9 @@ function PostDataPage() {
   return (
     <div className="min-h-screen flex flex-col overflow-hidden">
       <PostDataHeader />
-      <PostDataBody />
+      <main className="flex-grow min-h-0 relative">
+        <PostDataBody />
+      </main>
       <PostDataFooter />
     </div>
   );
