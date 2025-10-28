@@ -15,6 +15,7 @@ type State = {
 type Actions = {
   // Upload
   setDataset: (file: Dataset | null) => void;
+  setHasUploaded: (uploaded: boolean) => void;
   resetDataset: () => void;
 
   // Mode
@@ -50,6 +51,7 @@ export const useApp = create<State & Actions>()(
         if (file) set({dataset: file});
         if (file && !get().hasUploaded) set({hasUploaded: true});
       },
+      setHasUploaded: (uploaded) => set({hasUploaded: uploaded}),
       resetDataset: () => set({hasUploaded: false}),
 
       toggleMode: () => {

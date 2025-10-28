@@ -5,10 +5,9 @@ import './App.css'
 import ThemeWatcher from './components/theme-watcher';
 
 export default function App() {
-  // const hasUploaded = useApp(x => x.hasUploaded);
-  const hasUploaded = true; // TEMPORARY OVERRIDE FOR TESTING POST-DATA PAGE
+  const hasUploaded = useApp(x => x.hasUploaded);
 
- return (
+  return (
     <>
       <ThemeWatcher />
       <div> { hasUploaded ? <PostDataPage/> : <PreDataPage/>} </div>

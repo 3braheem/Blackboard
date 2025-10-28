@@ -1,5 +1,5 @@
 import { IconPlus, IconSwitch, IconTrash } from '@tabler/icons-react';
-import {Actions, DockLocation, Layout, Model, TabSetNode} from 'flexlayout-react';
+import {Actions, DockLocation, Layout, Model, TabNode, TabSetNode} from 'flexlayout-react';
 
 const json = {
     global: {
@@ -34,7 +34,7 @@ export default function PostDataBody() {
                 return <div style={{padding: 10}}>Add a new component.</div>;
         }
     };
-
+    
     const onRenderTabSet = (tabNode: TabSetNode, rv: any) => {
         rv.buttons = [
             // Settings

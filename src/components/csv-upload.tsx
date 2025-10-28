@@ -16,8 +16,8 @@ const handleFile = (file: File) => {
     complete: (results) => {
       const dataset = { name: file.name, rows: results.data as Record<string, string | number | null>[] } as Dataset;
       console.log('Parsed dataset:', dataset);
-      // useApp(x => x.setDataset(dataset));
-      // useApp(x => x.setHasUploaded(true));
+      useApp.getState().setDataset(dataset);
+      useApp.getState().setHasUploaded(true);
     },
     error: (error) => {
       console.error(`Error parsing CSV file: ${file}`, error);
@@ -28,6 +28,7 @@ const handleFile = (file: File) => {
 
 export default function CsvUpload({ className }: CsvUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  
   return (
     <>
         <Button className={className}
