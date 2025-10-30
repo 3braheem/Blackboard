@@ -17,14 +17,14 @@
     --color-drag1-background: rgba(95, 134, 196, 0.1);
     --color-drag2-background: rgba(119, 166, 119, 0.075);
     --font-size: medium;
-    --font-family: Roboto, Arial, sans-serif;
+    --font-family: var(--font-sans);
     --color-overflow: gray;
     --color-icon: gray;
     --color-tabset-background: var(--color-background);
     --color-tabset-background-selected: var(--color-1);
     --color-tabset-background-maximized: var(--color-2);
     --color-tabset-divider-line: var(--border);
-    --color-tabset-header-background: var(--color-background);
+    --color-tabset-header-background: var(--card);
     --color-tabset-header: var(--color-text);
     --color-border-tab-content: var(--color-background);
     --color-border-background: var(--color-background);
@@ -226,7 +226,7 @@
     overflow: hidden;
     flex-grow: 1;
     border: 1px solid var(--color-tabset-divider-line);
-    border-radius: 4px;
+    border-radius: 12px;
   }
   .flexlayout__tabset_tab_divider {
     width: 4px;

@@ -6,7 +6,7 @@ import Title from "./title";
 export default function PostDataFooter() {
   return (
     <header className="flex items-center justify-center py-4">
-        <div className="w-full flex flex-row items-center justify-between px-4 border-2 border-dashed border-border rounded-sm inset-shadow-sm inset-shadow-secondary/5">
+        <div className="w-full flex flex-row items-center justify-between px-4 border-2 border-dashed border-border rounded-[12px] inset-shadow-sm inset-shadow-secondary/5">
           <Title />
           <div className="flex flex-row items-center justify-center">
               <DarkModeToggle />
