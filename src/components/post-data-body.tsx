@@ -1,5 +1,7 @@
-import { IconChartArea, IconChartBar, IconChartDots, IconChartLine, IconChartPie, IconImageInPicture, IconPencil, IconPlus, IconQuestionMark, IconSwitch, IconTable, IconTrash } from '@tabler/icons-react';
-import {Actions, DockLocation, Layout, Model, TabNode, TabSetNode} from 'flexlayout-react';
+import { IconChartArea, IconChartBar, IconChartDots, IconChartLine, IconChartPie, IconImageInPicture, IconPencil, IconQuestionMark, IconTable, IconTrash } from '@tabler/icons-react';
+import {Actions, BorderNode, Layout, Model, TabNode, TabSetNode, type ITabSetRenderValues} from 'flexlayout-react';
+import AddTabset from './add-tabset';
+import TabsetConfig from './tabset-config';
 
 const json = {
     global: {
@@ -53,7 +55,7 @@ const iconForNode = (node: TabNode) => {
     }
 }
 
-const onRenderTabSet = (tabSetNode: TabSetNode, rv: any) => {
+const onRenderTabSet = (tabSetNode: TabSetNode | BorderNode, rv: ITabSetRenderValues) => {
     const active = (tabSetNode.getSelectedNode?.() as TabNode)
         ?? (tabSetNode.getChildren?.()[0] as TabNode);
     const icon = iconForNode(active);
@@ -65,32 +67,10 @@ const onRenderTabSet = (tabSetNode: TabSetNode, rv: any) => {
     );
     rv.buttons = [
         // Settings
-        <button key="settings"
-            onClick={(e) => {
-                e.stopPropagation();
-                console.log("Settings clicked");
-            }}
-            title="Settings">
-            <IconSwitch className="text-card" size={12}/>
-        </button>,
+        <TabsetConfig model={model} tabSetNode={tabSetNode} />,
 
         // Add Tab
-        <button key="add"
-            onClick={(e) => {
-                e.stopPropagation();
-                model.doAction(
-                    Actions.addNode(
-                        { type: "tab", name: "New", component: "a" },
-                        tabSetNode.getId(),
-                        DockLocation.RIGHT,
-                        -1,
-                        true
-                    ) 
-                    ); 
-            }}
-            title="Add Tabset">
-            <IconPlus className="text-card" size={12}/>
-        </button>,
+        <AddTabset model={model} tabSetNode={tabSetNode} />,
 
         // Delete Tab
         <button key="delete"
@@ -101,7 +81,7 @@ const onRenderTabSet = (tabSetNode: TabSetNode, rv: any) => {
                 );
             }}
             title="Delete Tab">
-            <IconTrash className="text-card" size={12}/>
+            <IconTrash className="text-card hover:text-primary" size={12}/>
         </button>
     ];
 }
