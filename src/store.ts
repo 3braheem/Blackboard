@@ -1,18 +1,22 @@
 import { create } from 'zustand';
 import type { Mode, Tile, Dataset } from "./types";
 
-export type MosaicTree = unknown;
+type ImageEntry = { src: string | null; objectUrl?: string | null; };
 
 type State = {
+  version: number;
   hasUploaded: boolean;
   dataset: Dataset | null;
   mode: Mode;
   tiles: Record<string, Tile>;
-  mosaic: MosaicTree | null;
   title: string;
+
+  images: Record<string, ImageEntry>;
 }
 
 type Actions = {
+  setVersion: (version: number) => void;
+
   // Upload
   setDataset: (file: Dataset | null) => void;
   setHasUploaded: (uploaded: boolean) => void;
@@ -25,11 +29,12 @@ type Actions = {
   addTile: (type: Tile) => void;
   updateTile: (id: string, updater: (type: Tile) => Tile) => void;
 
-  // Mosaic
-  setMosaic: (tree: MosaicTree | null) => void;
-
   // Title
   setTitle: (title: string) => void;
+
+  // Tab Data
+  setImage: (id: string, src: string, objectUrl?: string) => void;
+  clearImage: (id: string) => void;
 }
 
 export const resolveMode = (mode: Mode) => {
@@ -40,12 +45,17 @@ export const resolveMode = (mode: Mode) => {
 
 export const useApp = create<State & Actions>()(
     (set, get) => ({
+      version: 0,
       hasUploaded: false,
       dataset: null,
       mode: 'system',
       tiles: {},
       mosaic: null,
       title: '',
+
+      images: {},
+
+      setVersion: (version) => set({version}),
 
       setDataset: (file) => {
         if (file) set({dataset: file});
@@ -65,8 +75,13 @@ export const useApp = create<State & Actions>()(
       updateTile: (id, updater) => 
         set((state) => ({tiles: {...state.tiles, [id]: updater(state.tiles[id])}})),
 
-      setMosaic: (tree) => set({mosaic: tree}),
       setTitle: (title) => set({title: title}),
+
+      setImage: (id, src, objectUrl) => set((state) => ({ images: { ...state.images, [id]: { src, objectUrl } } })),
+      clearImage: (id) => set((state) => {
+        const {[id]: _, ...rest} = state.images;
+        return { images: rest };
+      })
     }),
 
 )

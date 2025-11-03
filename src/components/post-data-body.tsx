@@ -2,6 +2,8 @@ import { IconChartArea, IconChartBar, IconChartDots, IconChartLine, IconChartPie
 import {Actions, BorderNode, Layout, Model, TabNode, TabSetNode, type ITabSetRenderValues} from 'flexlayout-react';
 import AddTabset from './add-tabset';
 import TabsetConfig from './tabset-config';
+import { useApp } from '@/store';
+import Img from './flexlayout-components/img';
 
 const json = {
     global: {
@@ -87,26 +89,30 @@ const onRenderTabSet = (tabSetNode: TabSetNode | BorderNode, rv: ITabSetRenderVa
 }
 
 export default function PostDataBody() {
+    const version = useApp(x => x.version);
     const factory = (node: any) => {
+        const node_id = node.getId();
+        const v_id = `${node.getId()}-${version}`;
+
         switch (node.getComponent()) {
             case "md":
-                return <div style={{padding: 10}}>This is markdown.</div>;
+                return <div key={v_id} style={{padding: 10}}>This is markdown.</div>;
             case "lc":
-                return <div style={{padding: 10}}>This is a line chart.</div>;
+                return <div key={v_id} style={{padding: 10}}>This is a line chart.</div>;
             case "bc":
-                return <div style={{padding: 10}}>This is a bar chart.</div>;
+                return <div key={v_id} style={{padding: 10}}>This is a bar chart.</div>;
             case "sc":
-                return <div style={{padding: 10}}>This is a scatterplot.</div>;
+                return <div key={v_id} style={{padding: 10}}>This is a scatterplot.</div>;
             case "pc":
-                return <div style={{padding: 10}}>This is a pie chart.</div>;
+                return <div key={v_id} style={{padding: 10}}>This is a pie chart.</div>;
             case "ac":
-                return <div style={{padding: 10}}>This is an area chart.</div>;
+                return <div key={v_id} style={{padding: 10}}>This is an area chart.</div>;
             case "img":
-                return <div style={{padding: 10}}>This is an image.</div>;
+                return <Img node_id={node_id} v_id={v_id} />; 
             case "tb":
-                return <div style={{padding: 10}}>This is a table.</div>;
+                return <div key={v_id} style={{padding: 10}}>This is a table.</div>;
             default:
-                return <div style={{padding: 10}}>Add a new component.</div>;
+                return <div key={v_id} style={{padding: 10}}>Add a new component.</div>;
         }
     };
      

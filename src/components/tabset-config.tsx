@@ -13,6 +13,8 @@ import {
     DropdownMenuSubContent,
     DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useApp } from '@/store';
+
 
 export default function TabsetConfig({ model, tabSetNode }: { model: Model; tabSetNode: TabSetNode | BorderNode }) {
     const active = (tabSetNode.getSelectedNode?.() as TabNode)
@@ -27,6 +29,7 @@ export default function TabsetConfig({ model, tabSetNode }: { model: Model; tabS
                 { type: "tab", name: name, component: component }
             ) 
         );
+        useApp(x => x.setVersion(x.version + 1));
     };
 
     return (
