@@ -4,6 +4,7 @@ import AddTabset from './add-tabset';
 import TabsetConfig from './tabset-config';
 import { useApp } from '@/store';
 import Img from './flexlayout-components/img';
+import Md from './flexlayout-components/md';
 
 const json = {
     global: {
@@ -96,7 +97,7 @@ export default function PostDataBody() {
 
         switch (node.getComponent()) {
             case "md":
-                return <div key={v_id} style={{padding: 10}}>This is markdown.</div>;
+                return <Md node_id={node_id} v_id={v_id} />; 
             case "lc":
                 return <div key={v_id} style={{padding: 10}}>This is a line chart.</div>;
             case "bc":

@@ -6,7 +6,7 @@ export default function Title() {
     return (
         <div>
             <input
-                className="py-1 pl-1 text-card text-[24px] font-serif focus:outline-none"
+                className="py-1 pl-1 text-secondary-foreground text-[24px] font-serif focus:outline-none"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Add Title..."

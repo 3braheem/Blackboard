@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./index.css";
+
+.tiptap-scope .ProseMirror {
+    @apply h-full w-full p-4 outline-none overflow-auto;
+}
+
+/* Example “prose-like” defaults, SCOPED */
+.tiptap-scope :where(h1) { @apply text-4xl text-primary font-bold mb-2; }
+.tiptap-scope :where(h2) { @apply text-2xl text-primary italic my-2; }
+.tiptap-scope :where(h3) { @apply text-xl text-primary italic my-2; }
+.tiptap-scope :where(p)  { @apply leading-7 my-2; }
+.tiptap-scope :where(ul) { @apply list-disc pl-6 my-2; }
+.tiptap-scope :where(ol) { @apply list-decimal pl-6 my-2; }
+.tiptap-scope :where(code){ @apply rounded bg-muted px-1 py-0.5 text-sm; }
+.tiptap-scope :where(pre) { @apply rounded bg-muted p-3 overflow-auto; }
+.tiptap-scope :where(blockquote){ @apply border-l-2 pl-3 text-muted-foreground; }

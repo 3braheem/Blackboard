@@ -12,6 +12,7 @@ type State = {
   title: string;
 
   images: Record<string, ImageEntry>;
+  mdx: Record<string, string>;
 }
 
 type Actions = {
@@ -35,6 +36,9 @@ type Actions = {
   // Tab Data
   setImage: (id: string, src: string, objectUrl?: string) => void;
   clearImage: (id: string) => void;
+
+  setMdx: (id: string, content: string) => void;
+  ensureMdx: (id: string, initial?: string) => void;
 }
 
 export const resolveMode = (mode: Mode) => {
@@ -54,6 +58,7 @@ export const useApp = create<State & Actions>()(
       title: '',
 
       images: {},
+      mdx: {},
 
       setVersion: (version) => set({version}),
 
@@ -81,7 +86,12 @@ export const useApp = create<State & Actions>()(
       clearImage: (id) => set((state) => {
         const {[id]: _, ...rest} = state.images;
         return { images: rest };
-      })
+      }),
+
+      setMdx: (id, content) => set((state) => ({ mdx: { ...state.mdx, [id]: content } })),
+      ensureMdx: (id, initial = "# New Document") => set((state) => ({
+        mdx: state.mdx[id] ? state.mdx : { ...state.mdx, [id]: initial }
+      })),
     }),
 
 )

@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-
 @font-face {
   font-family: "Psygen";
   src: url("/src/assets/fonts/PsygenDemo-AREoM.otf") format("opentype");
@@ -94,7 +93,7 @@
   --primary: oklch(0.4 0.068 281); 
   --primary-foreground: oklch(0.985 0.001 106.423);
   --secondary: oklch(0.5 0.068 281);  
-  --secondary-foreground: oklch(0.216 0.006 56.043);
+  --secondary-foreground: oklch(0.3 0.068 281);
   --text: oklch(0.05 0.02 281);
   --muted: oklch(0.6 0.02 281);
   --muted-foreground: oklch(0.553 0.013 58.071);
@@ -131,7 +130,7 @@
   --primary: oklch(0.6 0.068 281);
   --primary-foreground: oklch(0.216 0.006 56.043);
   --secondary: oklch(0.5 0.068 281);
-  --secondary-foreground: oklch(0.985 0.001 106.423);
+  --secondary-foreground: oklch(0.8 0.068 281);
   --text: oklch(0.95 0.02 281);
   --muted: oklch(0.75 0.02 281);
   --muted-foreground: oklch(0.709 0.01 56.259);
