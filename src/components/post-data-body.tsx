@@ -5,6 +5,8 @@ import TabsetConfig from './tabset-config';
 import { useApp } from '@/store';
 import Img from './flexlayout-components/img';
 import Md from './flexlayout-components/md';
+import Tb from './flexlayout-components/tb';
+import type { Dataset } from '@/types';
 
 const json = {
     global: {
@@ -111,7 +113,7 @@ export default function PostDataBody() {
             case "img":
                 return <Img node_id={node_id} v_id={v_id} />; 
             case "tb":
-                return <div key={v_id} style={{padding: 10}}>This is a table.</div>;
+                return <Tb node_id={node_id} v_id={v_id} />;             
             default:
                 return <div key={v_id} style={{padding: 10}}>Add a new component.</div>;
         }

@@ -1,39 +1,29 @@
 import { useApp } from '@/store';
 import "@/tiptap.css";
-import {
-    MDXEditor,
-    type MDXEditorMethods,
-    headingsPlugin,
-    listsPlugin,
-    quotePlugin,
-    thematicBreakPlugin,
-    linkPlugin,
-    tablePlugin,
-    codeBlockPlugin,
-    markdownShortcutPlugin,
-    toolbarPlugin,
-    UndoRedo,
-    Separator,
-    BoldItalicUnderlineToggles,
-    CodeToggle,
-    ListsToggle,
-    InsertCodeBlock,
-    sandpackPlugin,
-    InsertSandpack,
-    CreateLink,
-    BlockTypeSelect,
-  } from '@mdxeditor/editor';
-
-// import '@mdxeditor/editor/style.css'
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from '@tiptap/markdown';
 
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { createLowlight, common } from 'lowlight';
+
+import 'highlight.js/styles/atom-one-dark.css';
+
 type MdProps = { node_id: string, v_id: string };
 
+const lowlight = createLowlight(common);
+const MyCodeBlock = CodeBlockLowlight.extend({
+    renderHTML({ HTMLAttributes }) {
+      return [
+        'pre',
+        { ...HTMLAttributes, spellcheck: 'false', 'data-gramm': 'false' },
+        ['code', 0],
+      ]
+    },
+  })
+
 export default function Md( { node_id, v_id }: MdProps ) {
-    const editorRef = useRef<MDXEditorMethods>(null);
     const md = useApp(x => x.mdx[node_id]);
     const setMdx = useApp(x => x.setMdx);
     const ensureMdx = useApp(x => x.ensureMdx);
@@ -43,10 +33,13 @@ export default function Md( { node_id, v_id }: MdProps ) {
     }, [ensureMdx, node_id]);
 
     const editor = useEditor({
-        extensions: [StarterKit, Markdown],
+        extensions: [
+            StarterKit.configure({ codeBlock: false }),
+            MyCodeBlock.configure({ lowlight }),
+            Markdown
+        ],
         content: md,
         onUpdate: ({ editor }) => {
-          const value = editor.getJSON();
           const markdown = editor.getMarkdown(); 
           setMdx(node_id, markdown);
         }
@@ -55,39 +48,6 @@ export default function Md( { node_id, v_id }: MdProps ) {
     return (
         <div key={v_id} className="h-full w-full min-h-0 overflow-hidden group">
             { md !== undefined && (
-            //    <MDXEditor
-            //    ref={editorRef}
-            //    className="mdx-scope h-full"
-            //    contentEditableClassName="prose max-w-none"
-            //    markdown={md}
-            //    onChange={(next) => setMdx(node_id, next)}
-            //    plugins={[
-            //        toolbarPlugin({
-            //            toolbarClassName: "my-toolbar",
-            //            toolbarContents: () => (
-            //                 <div className="flex items-center">
-            //                     <UndoRedo />
-            //                     <Separator />
-            //                     <CreateLink />
-            //                     <BoldItalicUnderlineToggles />
-            //                     <CodeToggle />
-            //                     <ListsToggle /> 
-            //                     <Separator />
-            //                     <InsertCodeBlock />
-            //                     <BlockTypeSelect />
-            //                 </div>
-            //             ),   
-            //         }),     
-            //         headingsPlugin(),
-            //         listsPlugin(),
-            //         quotePlugin(),
-            //         thematicBreakPlugin(),
-            //         linkPlugin(),
-            //         tablePlugin(),
-            //         codeBlockPlugin(),
-            //         markdownShortcutPlugin(), 
-            //       ]}
-            //     />
                 <div className="h-full w-full flex flex-col">
                     <div></div>
                     <div className="flex-1 overflow-auto p-4 text-left">

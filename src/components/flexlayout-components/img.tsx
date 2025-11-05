@@ -62,7 +62,7 @@ export default function Img({ node_id, v_id }: ImgProps) {
                         className="h-full w-full object-contain"
                         draggable={false}
                     />
-                    <div className="absolute top-4 right-4 hidden group-hover:block">
+                    <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100">
                         <ButtonGroup className="bg-background rounded-[8px]">
                             <Button variant={"outline"} onClick={openPicker}>
                                 <IconUpload size={12} />

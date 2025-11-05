@@ -1,3 +1,5 @@
+import { ColumnDef } from '@tanstack/react-table';
+
 export type Mode = 'light' | 'dark' | 'system';
 
 export type TileData = 'md' | 'chart' | 'table' | 'image';
@@ -14,5 +16,5 @@ export type Tile =
     }
   | { id: string; kind: 'image'; title?: string; config: { url: string } };
 
-export type Row = Record<string, string | number | null>;
+export type Row = Record<string, string | number | boolean | null>;
 export type Dataset = { name?: string; rows: Row[] };

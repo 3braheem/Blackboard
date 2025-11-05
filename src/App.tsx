@@ -7,10 +7,11 @@ import ThemeWatcher from './components/theme-watcher';
 export default function App() {
   // const hasUploaded = useApp(x => x.hasUploaded);
   const hasUploaded = true;
+
   return (
     <>
       <ThemeWatcher />
-      <div> { hasUploaded ? <PostDataPage/> : <PreDataPage/>} </div>
+      <div> { hasUploaded ? <PostDataPage /> : <PreDataPage/>} </div>
     </>
   );
 }
