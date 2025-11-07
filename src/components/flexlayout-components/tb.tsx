@@ -19,7 +19,7 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import { useMemo, useState } from "react";
-import { IconArrowsUpDown, IconChevronDown, IconX } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconArrowsUpDown, IconColumns } from "@tabler/icons-react";
 import { ButtonGroup } from "../ui/button-group";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -68,6 +68,7 @@ const data = {
       } as Row
     ]
 } as Dataset;
+data.rows = data.rows.concat(data.rows).concat(data.rows).concat(data.rows).concat(data.rows);
 
 const buildColumns = (rows: Row[]): ColumnDef<Row>[] => {
     const keys = Array.from(
@@ -119,16 +120,20 @@ export default function Tb({ node_id, v_id }: TbProps) {
             sorting,
             columnVisibility,
         },
+        initialState: {
+            pagination: { pageSize: 12 }   // or 50, 100, etc
+        },
     });
 
     return (
-        <div className="border-b group">
+        <div className="h-3/5">
+        <div className="group">
             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 group-has-[button[data-state='open']]:opacity-100 z-999">
                 <ButtonGroup className="bg-background rounded-[8px]">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" className="ml-auto">
-                            Columns <IconChevronDown />
+                                <IconColumns />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuPortal>
@@ -153,15 +158,26 @@ export default function Tb({ node_id, v_id }: TbProps) {
                         </DropdownMenuContent>
                         </DropdownMenuPortal>
                     </DropdownMenu>
-                        <Button variant={"outline"}>
-                            <IconX />
+                        <Button
+                        variant="outline"
+                        onClick={() => table.previousPage()}
+                        disabled={!table.getCanPreviousPage()}
+                        >
+                            <IconArrowLeft />
+                        </Button>
+                        <Button
+                        variant="outline"
+                        onClick={() => table.nextPage()}
+                        disabled={!table.getCanNextPage()}
+                        >
+                            <IconArrowRight />
                         </Button>
                 </ButtonGroup>
             </div>
             <Table className="overflow-hidden">
                 <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
-                    <TableRow key={headerGroup.id}>
+                    <TableRow key={headerGroup.id} className="hover:bg-foreground">
                     {headerGroup.headers.map((header) => {
                         return (
                         <TableHead key={header.id} className="p-4 text-primary text-[18px]">
@@ -182,7 +198,8 @@ export default function Tb({ node_id, v_id }: TbProps) {
                     table.getRowModel().rows.map((row) => (
                     <TableRow
                         key={row.id}
-                        data-state={row.getIsSelected() && "selected"}
+                        data-state={row.getIsSelected() && "selected"} 
+                        className="hover:bg-foreground"
                     >
                         {row.getVisibleCells().map((cell) => (
                         <TableCell key={cell.id} className="p-4 text-left">
@@ -200,6 +217,10 @@ export default function Tb({ node_id, v_id }: TbProps) {
                 )}
                 </TableBody>
             </Table>
+        </div>
+        <div className="bg-foreground rounded-[8px] absolute bottom-4 right-4 p-2 text-xs text-muted/50 select-none">
+          {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
+        </div>
         </div>
     );
 }
