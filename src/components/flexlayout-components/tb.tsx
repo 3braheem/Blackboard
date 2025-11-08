@@ -5,6 +5,7 @@ import {
     getPaginationRowModel,
     getSortedRowModel,
     useReactTable,
+    type PaginationState,
     type ColumnDef,
     type SortingState,
     type VisibilityState,
@@ -18,7 +19,8 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import useAutoPageSize from "@/hooks/use-auto-page-size";
 import { IconArrowLeft, IconArrowRight, IconArrowsUpDown, IconColumns } from "@tabler/icons-react";
 import { ButtonGroup } from "../ui/button-group";
 import { Button } from "../ui/button";
@@ -88,8 +90,8 @@ const buildColumns = (rows: Row[]): ColumnDef<Row>[] => {
                             className="flex flex-row items-center gap-2"
                             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                         >
+                            <span className="capitalize italic">{key}</span>
                             <IconArrowsUpDown size={12}/>
-                            <span className="capitalize">{key}</span>
                         </button>
                     </div>
                 );
@@ -105,9 +107,11 @@ const buildColumns = (rows: Row[]): ColumnDef<Row>[] => {
 export default function Tb({ node_id, v_id }: TbProps) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+    const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
     const dataset = useMemo(() => data?.rows ?? [], [data]);
     const columns = buildColumns(dataset);
+
     const table = useReactTable<Row>({
         data: dataset,
         columns,
@@ -116,17 +120,36 @@ export default function Tb({ node_id, v_id }: TbProps) {
         getSortedRowModel: getSortedRowModel(),
         onSortingChange: setSorting,
         onColumnVisibilityChange: setColumnVisibility,
+        onPaginationChange: setPagination,
+        autoResetPageIndex: false,
         state: {
             sorting,
             columnVisibility,
-        },
-        initialState: {
-            pagination: { pageSize: 12 }   // or 50, 100, etc
+            pagination,
         },
     });
 
+    const containerRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLTableSectionElement>(null);
+    const bodyRef = useRef<HTMLDivElement>(null);
+
+    useAutoPageSize({
+        container: containerRef,
+        header: headerRef,
+        body: bodyRef,
+        setPageSize: (size: number) => {
+            setPagination((p) => {
+                const total = table.getFilteredRowModel().rows.length;   // or dataset.length
+                const pageCount = Math.max(1, Math.ceil(total / size));
+                const safeIndex = Math.min(p.pageIndex, pageCount - 1);
+                return { pageIndex: safeIndex, pageSize: size };
+            });
+        },
+        minRowHeight: 20,
+    });
+
     return (
-        <div className="h-3/5">
+        <div ref={containerRef} className="min-h-0 relative h-full">
         <div className="group">
             <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 group-has-[button[data-state='open']]:opacity-100 z-999">
                 <ButtonGroup className="bg-background rounded-[8px]">
@@ -174,8 +197,9 @@ export default function Tb({ node_id, v_id }: TbProps) {
                         </Button>
                 </ButtonGroup>
             </div>
+            <div ref={bodyRef}>
             <Table className="overflow-hidden">
-                <TableHeader>
+                <TableHeader ref={headerRef}>
                 {table.getHeaderGroups().map((headerGroup) => (
                     <TableRow key={headerGroup.id} className="hover:bg-foreground">
                     {headerGroup.headers.map((header) => {
@@ -217,8 +241,9 @@ export default function Tb({ node_id, v_id }: TbProps) {
                 )}
                 </TableBody>
             </Table>
+            </div>
         </div>
-        <div className="bg-foreground rounded-[8px] absolute bottom-4 right-4 p-2 text-xs text-muted/50 select-none">
+        <div className="bg-foreground rounded-b-[8px] p-2 px-4 text-xs text-right text-muted/50 select-none h-fill">
           {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
         </div>
         </div>
