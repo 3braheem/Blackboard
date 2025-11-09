@@ -6,7 +6,8 @@ import { useApp } from '@/store';
 import Img from './flexlayout-components/img';
 import Md from './flexlayout-components/md';
 import Tb from './flexlayout-components/tb';
-import type { Dataset } from '@/types';
+import type { Dataset, Row } from '@/types';
+import Chart from './flexlayout-components/chart';
 
 const json = {
     global: {
@@ -33,6 +34,48 @@ const json = {
         ]
     }
 };
+
+const data = {
+    name: "products",
+    rows: [
+      {
+        "id": "P001",
+        "name": "Laptop",
+        "price": null,
+        "inStock": true
+      } as Row,
+      {
+        "id": "P002",
+        "name": "Mouse",
+        "price": 29.99,
+        "inStock": true
+      } as Row,
+      {
+        "id": "P003",
+        "name": "Keyboard",
+        "price": 79.99,
+        "inStock": false
+      } as Row,
+      {
+        "id": "P001",
+        "name": "Laptop",
+        "price": null,
+        "inStock": true
+      } as Row,
+      {
+        "id": "P002",
+        "name": "Mouse",
+        "price": 29.99,
+        "inStock": true
+      } as Row,
+      {
+        "id": "P003",
+        "name": "Keyboard",
+        "price": 79.99,
+        "inStock": false
+      } as Row
+    ]
+} as Dataset;
 
 const model = Model.fromJson(json);
 
@@ -103,7 +146,7 @@ export default function PostDataBody() {
             case "lc":
                 return <div key={v_id} style={{padding: 10}}>This is a line chart.</div>;
             case "bc":
-                return <div key={v_id} style={{padding: 10}}>This is a bar chart.</div>;
+                return <Chart key={v_id} node_id={node_id} v_id={v_id} type="bar" data={data} />;
             case "sc":
                 return <div key={v_id} style={{padding: 10}}>This is a scatterplot.</div>;
             case "pc":
@@ -113,7 +156,7 @@ export default function PostDataBody() {
             case "img":
                 return <Img node_id={node_id} v_id={v_id} />; 
             case "tb":
-                return <Tb node_id={node_id} v_id={v_id} />;             
+                return <Tb node_id={node_id} v_id={v_id} data={data} />;             
             default:
                 return <div key={v_id} style={{padding: 10}}>Add a new component.</div>;
         }

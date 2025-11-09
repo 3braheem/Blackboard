@@ -45,5 +45,5 @@ export default function useAutoPageSize({ container, header, body, setPageSize, 
             bodyRO.current?.disconnect();
             cancelAnimationFrame(t);
         };
-    }, [container, header, body, setPageSize]);
+    }, [container, setPageSize]);
 }

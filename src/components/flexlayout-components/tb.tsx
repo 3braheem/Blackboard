@@ -27,50 +27,7 @@ import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { DropdownMenuPortal } from "@radix-ui/react-dropdown-menu";
 
-type TbProps = { node_id: string, v_id: string };
-
-const data = {
-    name: "products",
-    rows: [
-      {
-        "id": "P001",
-        "name": "Laptop",
-        "price": null,
-        "inStock": true
-      } as Row,
-      {
-        "id": "P002",
-        "name": "Mouse",
-        "price": 29.99,
-        "inStock": true
-      } as Row,
-      {
-        "id": "P003",
-        "name": "Keyboard",
-        "price": 79.99,
-        "inStock": false
-      } as Row,
-      {
-        "id": "P001",
-        "name": "Laptop",
-        "price": null,
-        "inStock": true
-      } as Row,
-      {
-        "id": "P002",
-        "name": "Mouse",
-        "price": 29.99,
-        "inStock": true
-      } as Row,
-      {
-        "id": "P003",
-        "name": "Keyboard",
-        "price": 79.99,
-        "inStock": false
-      } as Row
-    ]
-} as Dataset;
-data.rows = data.rows.concat(data.rows).concat(data.rows).concat(data.rows).concat(data.rows);
+type TbProps = { node_id: string, v_id: string, data: Dataset | null };
 
 const buildColumns = (rows: Row[]): ColumnDef<Row>[] => {
     const keys = Array.from(
@@ -104,7 +61,7 @@ const buildColumns = (rows: Row[]): ColumnDef<Row>[] => {
     });
     return cols;
 }
-export default function Tb({ node_id, v_id }: TbProps) {
+export default function Tb({ node_id, v_id, data }: TbProps) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
@@ -139,7 +96,7 @@ export default function Tb({ node_id, v_id }: TbProps) {
         body: bodyRef,
         setPageSize: (size: number) => {
             setPagination((p) => {
-                const total = table.getFilteredRowModel().rows.length;   // or dataset.length
+                const total = table.getFilteredRowModel().rows.length; 
                 const pageCount = Math.max(1, Math.ceil(total / size));
                 const safeIndex = Math.min(p.pageIndex, pageCount - 1);
                 return { pageIndex: safeIndex, pageSize: size };
