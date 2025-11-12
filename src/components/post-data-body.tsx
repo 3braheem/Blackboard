@@ -7,6 +7,7 @@ import Img from './flexlayout-components/img';
 import Md from './flexlayout-components/md';
 import Tb from './flexlayout-components/tb';
 import type { Dataset, Row } from '@/types';
+import Bc from './flexlayout-components/bc';
 import Chart from './flexlayout-components/chart';
 
 const json = {
@@ -41,37 +42,43 @@ const data = {
       {
         "id": "P001",
         "name": "Laptop",
-        "price": null,
+        "price": 59.99,
+        "stock": 400,
         "inStock": true
       } as Row,
       {
         "id": "P002",
         "name": "Mouse",
         "price": 29.99,
+        "stock": 400,
         "inStock": true
       } as Row,
       {
         "id": "P003",
         "name": "Keyboard",
         "price": 79.99,
+        "stock": 400,
         "inStock": false
       } as Row,
       {
         "id": "P001",
         "name": "Laptop",
-        "price": null,
+        "price": 129.99,
+        "stock": 400,
         "inStock": true
       } as Row,
       {
         "id": "P002",
         "name": "Mouse",
         "price": 29.99,
+        "stock": 400,
         "inStock": true
       } as Row,
       {
         "id": "P003",
         "name": "Keyboard",
         "price": 79.99,
+        "stock": 400,
         "inStock": false
       } as Row
     ]
@@ -146,7 +153,7 @@ export default function PostDataBody() {
             case "lc":
                 return <div key={v_id} style={{padding: 10}}>This is a line chart.</div>;
             case "bc":
-                return <Chart key={v_id} node_id={node_id} v_id={v_id} type="bar" data={data} />;
+                return <Chart node_id={node_id} v_id={v_id} data={data} type="bar" />;
             case "sc":
                 return <div key={v_id} style={{padding: 10}}>This is a scatterplot.</div>;
             case "pc":

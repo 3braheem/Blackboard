@@ -16,5 +16,5 @@ export type Tile =
     }
   | { id: string; kind: 'image'; title?: string; config: { url: string } };
 
-export type Row = Record<string, string | number | boolean | null>;
+export type Row = Record<string, any>;
 export type Dataset = { name?: string; rows: Row[] };
