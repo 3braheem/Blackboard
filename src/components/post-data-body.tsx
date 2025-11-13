@@ -7,7 +7,6 @@ import Img from './flexlayout-components/img';
 import Md from './flexlayout-components/md';
 import Tb from './flexlayout-components/tb';
 import type { Dataset, Row } from '@/types';
-import Bc from './flexlayout-components/bc';
 import Chart from './flexlayout-components/chart';
 
 const json = {
@@ -43,21 +42,27 @@ const data = {
         "id": "P001",
         "name": "Laptop",
         "price": 59.99,
-        "stock": 400,
+        "stock": 320,
+        "sales": 10,
+        "type": "sale",
         "inStock": true
       } as Row,
       {
         "id": "P002",
         "name": "Mouse",
         "price": 29.99,
-        "stock": 400,
+        "stock": 240,
+        "sales": 18,
+        "type": "lease",
         "inStock": true
       } as Row,
       {
         "id": "P003",
         "name": "Keyboard",
         "price": 79.99,
-        "stock": 400,
+        "stock": 160,
+        "sales": 40,
+        "type": "lease",
         "inStock": false
       } as Row,
       {
@@ -65,20 +70,26 @@ const data = {
         "name": "Laptop",
         "price": 129.99,
         "stock": 400,
+        "sales": 60,
+        "type": "lease",
         "inStock": true
       } as Row,
       {
         "id": "P002",
         "name": "Mouse",
         "price": 29.99,
-        "stock": 400,
+        "stock": 200,
+        "sales": 10,
+        "type": "sale",
         "inStock": true
       } as Row,
       {
         "id": "P003",
         "name": "Keyboard",
         "price": 79.99,
-        "stock": 400,
+        "stock": 300,
+        "sales": 15,
+        "type": "sale",
         "inStock": false
       } as Row
     ]

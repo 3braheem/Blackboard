@@ -21,7 +21,7 @@ import {
   } from "@/components/ui/table"
 import { useMemo, useRef, useState } from "react";
 import useAutoPageSize from "@/hooks/use-auto-page-size";
-import { IconArrowLeft, IconArrowRight, IconArrowsUpDown, IconColumns } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconArrowsUpDown, IconChartColumn } from "@tabler/icons-react";
 import { ButtonGroup } from "../ui/button-group";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu";
@@ -113,7 +113,7 @@ export default function Tb({ node_id, v_id, data }: TbProps) {
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="outline" className="ml-auto">
-                                <IconColumns />
+                                <IconChartColumn />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuPortal>

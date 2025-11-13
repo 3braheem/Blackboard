@@ -13,10 +13,10 @@ export default function Chart({ node_id, v_id, data, type }: ChartProps) {
     const keys = data?.rows[0] ? Object.keys(data.rows[0]) : [];
     
     const numericalKeys = keys.filter(x => data?.rows.some(r => typeof r[x] === "number"));
-    const stringKeys = keys.filter(x => data?.rows.some(r => typeof r[x] === "string"));
+    const catKeys = keys.filter(x => data?.rows.some(r => typeof r[x] !== "number"));
 
     switch (type) {
         case "bar":
-            return <Bc numKeys={numericalKeys} strKeys={stringKeys} rows={rows} />;
+            return <Bc numKeys={numericalKeys} catKeys={catKeys} rows={rows} />;
     }
 }
